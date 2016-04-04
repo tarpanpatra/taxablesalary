@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Simple Tax Calculator</title>
+		<link rel="stylesheet" href="css/materialize.min.css">
+		<link rel="stylesheet" href="css/material.min.css">
+		<link rel="stylesheet" href="css/cssone.min.css">
+		<link rel="stylesheet" href="css/offline.min.css">
+		<script src="js/jquery.min.js"></script>
+	    <script src="js/materialize.min.js"></script>
+		<script src="js/material.min.js"></script>
+		<script src="js/offline.min.js"></script>
+		<script src="js/jstwo.min.js"></script>
+		<script type="text/javascript">
+			$(function(){
+				var Calc={
+						display:function(v){
+							$("#display").val(v);
+						},
+						clear:function(){
+							$("#display").val(" ");
+						},
+						doCal:function(val){
+							var result="";
+							var dtemp=$("#display").val();
+							if(dtemp=="0"){
+								this.clear();
+								result=val; 
+							}else if(val=="c"){
+								this.clear();
+							}else if(val=="="){
+								result=eval(dtemp);
+							}else{
+								result=dtemp+val;
+							}
+								this.display(result);
+						}
+					}
+					$("body").keypress(function(e){
+						Calc.doCal(String.fromCharCode(e.which));
+					});
+					$('.calc button').click(function(e){
+						e.preventDefault();
+						Calc.doCal(this.value);
+					});
+			});
+		</script>
+	</head>
+	<body>
+		<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+			<header class="mdl-layout__header">
+			    	<div class="mdl-layout__header-row">
+			      		<span class="mdl-layout-title">Simple Tax Calculator</span>
+			      		<div class="mdl-layout-spacer"></div>
+			      		<button id="demo-menu-lower-right" class="mdl-button mdl-js-button mdl-button--icon"><i class="material-icons">more_vert</i></button>
+						<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="demo-menu-lower-right">
+						  <li class="mdl-menu__item">Help</li>
+						  <li class="mdl-menu__item">News</li>
+						</ul>
+			    	</div>
+				<!--  
+			    	<div class="mdl-layout__header-row">
+			      		<div class="mdl-layout-spacer"></div>
+			    	</div>
+			    	-->
+			</header>
+			<div class="mdl-layout__drawer">
+	    		<span class="mdl-layout-title">Calculate Tax</span>
+	    		<nav class="mdl-navigation">
+		     		<a class="mdl-navigation__link" href="index.html">DashBoard</a>
+		      		<a class="mdl-navigation__link" href="taxable_salary.html">Taxable Salary</a>
+		      		<a class="mdl-navigation__link" href="retirement_benefits.html">Retirement Benefits</a>
+	    		</nav>
+  			</div>
+			<main class="mdl-layout__content">
+			    <div class="page-content">
+					<div class="row">
+					  	<div class="col s12">
+						    <ul class="tabs">
+							    <li class="tab col s3"><a class="active" href="#tabs-1">Basics</a></li>
+							    <li class="tab col s3"><a href="#tabs-2">Allowances</a></li>
+							    <li class="tab col s3"><a href="#tabs-3">Perquisites</a></li>
+							    <li class="tab col s3"><a href="#tabs-4">Taxable</a></li>
+						    </ul>
+					    </div>
+						<div id="tabs-1" class="col s12">
+							<br />
+							<input type="number" min="1" max="12" id="calculate_month" /> Month Computation
+							<br />
+							<br />
+							<input type="checkbox" id="ph" /><label for="ph">Physically Handicapt</label>
+							<br />
+							<br />
+							<input type="radio" name="city" id="metro_city" /><label for="metro_city">Work in Metro City</label>
+							<br />
+							<br />
+							<input type="radio" name="city" id="nonmetro_city" /><label for="nonmetro_city">Work in Non Metro City</label>
+							<br />
+							<br />
+							(Delhi,Mumbai,Kolkata,Chennai Are Metro City)
+							<br />
+							<br />
+							<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+								<input class="mdl-textfield__input" type="number" id="basicsalary_monthly" />
+								<label class="mdl-textfield__label" for="sample4">Basic Salary (Per Month)</label> 
+							</div>
+							<br />
+							<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">	
+								<input class="mdl-textfield__input" type="number" id="saleorprofit" />
+								<label class="mdl-textfield__label" for="saleorprofit">Turnover/Profit</label>
+							</div> 
+								Percentage(%) <input type="number" min="1" max="100" id="commission_percent" />
+							<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"> 
+								<input class="mdl-textfield__input" type="number" id="commission" />
+								<label class="mdl-textfield__label" for="commission">Commission</label>
+							</div>	
+							<hr/>
+						</div>
+			  			<div id="tabs-2" class="col s12">
+			  				<br />
+							<ul class="collapsible popout" data-collapsible="accordion">
+								<li>
+			      					<div class="collapsible-header"><i class="material-icons"></i>Taxable HRA</div>
+			      					<div class="collapsible-body">
+										<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+											<input class="mdl-textfield__input" type="number" id="rentpaid_byyoumonthly">
+											<label class="mdl-textfield__label" for="rentpaid_byyoumonthly">Rent Paid (Per Month)</label>
+										</div>
+										<br />
+										<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+											<input class="mdl-textfield__input" type="number"  id="da">
+											<label class="mdl-textfield__label" for="da">DA (Per Month)</label>
+										</div>	 
+											Forming Part Of Salary (%) <input type="number" min="1" max="100" id="fpos" />
+										<br />	
+										<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+						  					<input class="mdl-textfield__input" type="number"  id="hra" /> 
+						  					<label class="mdl-textfield__label" for="hra">HRA (Per Month)</label>
+						  				</div>	
+						  				<label class="taxable-label" id="taxable_hra"></label>
+						  				<br /><br />	 
+						  				<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" id="computehra">
+						  					Compute Taxable HRA
+						  				</button>
+						  				<!--<a class="waves-effect waves-light btn modal-trigger" href="#hrasolve">Solution</a>-->
+						  				
+									</div>
+								</li>
+								<li>
+			      					<div class="collapsible-header"><i class="material-icons"></i>Monthly Taxable Allowances</div>
+			      					<div class="collapsible-body">
+			      						<br />
+			      						(In Case of Children Education Allowance and Children Hostel Allowance, If More Than One, Enter Seperated By Comma)
+			      						<br />
+										<br />
+										<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">  
+											<input class="mdl-textfield__input" type="text" size="11" id="children_education" />
+											<label class="mdl-textfield__label" for="children_education">Children Education Allowance</label>
+										</div>
+										<label class="taxable-label" id="childrenedu_taxable"></label>
+										<br />
+										<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">  
+											<input class="mdl-textfield__input" type="text" size="11" id="children_hostel" />
+											<label class="mdl-textfield__label" for="children_hostel">Children Hostel Expenditure Allowance</label>
+										</div>
+										<label class="taxable-label" id="childrenhost_taxable"></label>
+										<br />
+										<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">  
+											<input class="mdl-textfield__input" type="number"  id="transport" />
+											<label class="mdl-textfield__label" for="transport">Transport Allowance</label>
+										</div>
+										<label class="taxable-label" id="transport_taxable"></label>
+										<br />  
+										<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+											<input class="mdl-textfield__input" type="number"  id="truck_driver" />
+											<label class="mdl-textfield__label" for="truck_driver">Truck Drider Allowance</label>
+										</div>
+										<label class="taxable-label" id="truckdriver_taxable"></label>
+										<br />  
+										<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+											<input class="mdl-textfield__input" type="number"  id="hilly_area" /> 
+											<label class="mdl-textfield__label" for="hilly_area">Hilly Area Allowance</label>
+										</div>
+										<label class="taxable-label" id="hillyarea_taxable"></label>
+										<br />  
+										<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+											<input class="mdl-textfield__input" type="number"  id="border_area" />
+											<label class="mdl-textfield__label" for="border_area">Border Area Allowance</label>
+										</div>
+										<label class="taxable-label" id="borderarea_taxable"></label>
+										<br />  
+										<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+											<input class="mdl-textfield__input" type="number"  id="tribal_area" /> 
+											<label class="mdl-textfield__label" for="tribal_area">Tribal Area Allowance</label>
+										</div>
+										<label class="taxable-label" id="tribalarea_taxable"></label>
+										<br /> 
+										<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+											<input class="mdl-textfield__input" type="number"  id="entertenment">
+											<label class="mdl-textfield__label" for="entertenment">Entertenment Allowance</label>
+										</div>
+										<input type="checkbox" id="govtemp" /><label for="govtemp">For Govt. Employee</label>
+										<label id="entertenment_taxable"></label>
+										<br />
+										If You Have Any Other Yearly Allowances Other Than Above Mentioned Allowances , Please Enter in Bellow Field (If More Than One, Enter Seperated By Comma)
+										<br />
+										<br />
+										<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"> 
+											<input class="mdl-textfield__input" type="text" size="11" id="otherallowances_monthly" />
+											<label class="mdl-textfield__label" for="otherallowances_monthly">Other Allowances (Per Month)</label>
+										</div>
+										<label class="taxable-label" id="otherallowancesm_taxable"></label>
+									</div>
+								</li>
+								<li>
+			      					<div class="collapsible-header"><i class="material-icons"></i>Yearly Taxable Allowances</div>
+			      					<div class="collapsible-body">
+										<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"> 
+											<input class="mdl-textfield__input" type="number"  id="travaling">
+											<label class="mdl-textfield__label" for="travaling">Traveling or Transfer Allowance</label>
+										</div>
+										<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"> 
+											<input class="mdl-textfield__input" type="number"  id="traveling_expenditure">
+											<label class="mdl-textfield__label" for="traveling_expenditure">Actual Traveling Expenditure</label>
+										</div> 
+										<label class="taxable-label" id="traveling_taxable"></label><u id="traveling_exempted"></u>
+										<br /> 
+										<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+											<input class="mdl-textfield__input" type="number"  id="academic">
+											<label class="mdl-textfield__label" for="academic">Profesional Development Allowance</label>
+										</div>  
+										<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+											<input class="mdl-textfield__input" type="number"  id="academic_expenditure">
+											<label class="mdl-textfield__label" for="academic_expenditure">Actual PD Expenditure</label>
+										</div> 
+										<label class="taxable-label" id="academic_taxable"></label><u id="academic_exempted"></u>
+										<br />
+										<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+											<input class="mdl-textfield__input" type="number"  id="helpar">
+											<label class="mdl-textfield__label" for="helpar">Helpar or Asistace Allowance</label>
+										</div>  
+										<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+											<input class="mdl-textfield__input" type="number"  id="helpar_expenditure">
+											<label class="mdl-textfield__label" for="helpar_expenditure">Actual Helpar Expenditure</label>
+										</div> 
+										<label class="taxable-label" id="helpar_taxable"></label><u id="helpar_exempted"></u>
+										<br />
+										<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+											<input class="mdl-textfield__input" type="number"  id="conveyance">
+											<label class="mdl-textfield__label" for="conveyance">Conveyance Allowance</label>
+										</div> 
+										<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+											<input class="mdl-textfield__input" type="number"  id="conveyance_expenditure">
+											<label class="mdl-textfield__label" for="conveyance_expenditure">Actual Conveyance Expenditure</label>
+										</div> 
+										<label class="taxable-label" id="conveyance_taxable"></label><u id="conveyance_exempted"></u>
+										<br />
+										<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+											<input class="mdl-textfield__input" type="number"  id="daily">
+											<label class="mdl-textfield__label" for="daily">Daily Allowance</label>
+										</div> 
+										<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+											<input class="mdl-textfield__input" type="number"  id="daily_expenditure">
+											<label class="mdl-textfield__label" for="daily_expenditure">Actual Daily Expenditure</label>
+										</div> 
+										<label class="taxable-label" id="daily_taxable"></label><u id="daily_exempted"></u>
+										<br />
+										<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+											<input class="mdl-textfield__input" type="number"  id="uniform">
+											<label class="mdl-textfield__label" for="uniform">Uniform Allowance</label>
+										</div> 
+										<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+											<input class="mdl-textfield__input" type="number"  id="uniform_expenditure">
+											<label class="mdl-textfield__label" for="sample4">Actual Uniform Expenditure</label>
+										</div> 
+										<label class="taxable-label" id="uniform_taxable"></label><u id="uniform_exempted"></u>
+										<br />
+										If You Have Any Other Yearly Allowances Other Than Above Mentioned Allowances , Please Enter in Bellow Field (If More Than One, Enter Seperated By Comma)
+										<br />
+										<br /> 
+										<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+											<input class="mdl-textfield__input" type="text" size="11" id="otherallowances_yearly" />
+											<label class="mdl-textfield__label" for="otherallowances_yearly">Other Allowances (Per Anum)</label>
+										</div>	 
+										<label class="taxable-label" id="otherallowancesy_taxable"></label>
+									</div>
+								</li>
+							</ul>	
+							<label class="taxable-label" id="totaltaxable_allowances"></label>
+							<br /> <br />
+							<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" id="gettotalallowance">Get Total</button>
+							<hr/>
+						</div>
+			  			<div id="tabs-3" class="col s12">
+							<ul class="collapsible popout" data-collapsible="accordion">
+							<li>
+						    	<div class="collapsible-header"><i class="material-icons"></i>Rent Free Furnished Accomodation</div>
+						    	<div class="collapsible-body">
+									<div class="input-field col s12"> 
+										<select id="home_type">
+											<option value=0>Please Select</option>
+											<option value=1>Owned By Employer</option>
+											<option value=2>Hire By Employer</option>
+										</select>
+										<label class="taxable-label">Home Type</label>
+									</div>
+									<br />
+									<div class="input-field col s12" id="population_slot"> 
+										<select id="population">
+											<option value=0>Please Select</option>
+											<option value=1>Area Population Less Than 10 Lacs</option>
+											<option value=2>Area Population Between 10 to 25 Lacs</option>
+											<option value=3>Area Population More Than 25 Lacs</option>
+										</select>
+										<label class="taxable-label">Population</label>
+									</div>
+									<br />
+									<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="rent_byemployer">
+										<input class="mdl-textfield__input" type="number"  id="rentpaid_byemployer">
+										<label class="mdl-textfield__label" for="rentpaid_byemployer">Rent Paid (By Employer)(Monthly)</label>
+									</div>
+									<br />	
+									<label class="taxable-label" id="rfa_taxable"></label>
+									<br />
+									<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="Costof_furniture">
+										<input class="mdl-textfield__input" type="number"  id="costoffurniture">
+										<label class="mdl-textfield__label" for="sample4">Cost of Furniture</label>
+									</div>
+									<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="furniture_rent">	
+										<input class="mdl-textfield__input" type="number"  id="furniturerent">
+										<label class="mdl-textfield__label" for="sample4">Furniture Rent (By Employer)(Monthly)</label>
+									</div>
+									<br />
+									<label class="taxable-label" id="furniture_taxable"></label>
+									<br />
+									<br /> 
+									<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" id="computefurniture">Compute Taxable Furniture</button>
+									<br />
+									<label class="taxable-label" id="rffa_taxable"></label>
+									<br />
+									<br /> 
+									<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" id="computerffa">Compute Taxable RFFA</button>
+								</div>
+							</li>
+							<li>
+								<div class="collapsible-header"><i class="material-icons"></i>Gas Electricity WaterSupply Servent Gardener</div>
+								<div class="collapsible-body">
+									<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+										<input class="mdl-textfield__input" type="number"  id="gas_bill" />
+										<label class="mdl-textfield__label" for="gas_bill">Gas Bill (Per Month)</label>
+									</div>	 
+									<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+										<input class="mdl-textfield__input" type="number"  id="gasby_employee" />
+										<label class="mdl-textfield__label" for="gasby_employee">Employee Paid (Per Month)</label>
+									</div>	 
+									<label class="taxable-label" id="gas_taxable"></label>
+									<br />
+									<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+										<input class="mdl-textfield__input" type="number"  id="electricity_bill" />
+										<label class="mdl-textfield__label" for="electricity_bill">Electricity Bill (Per Month)</label>
+									</div>	
+									<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"> 
+										<input class="mdl-textfield__input" type="number"  id="electricby_employee" />
+										<label class="mdl-textfield__label" for="electricby_employee">Employee Paid (Per Month)</label>
+									</div>	 
+									<label class="taxable-label" id="electricity_taxable"></label>
+									<br />
+									<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+										<input class="mdl-textfield__input" type="number"  id="water_bill" />
+										<label class="mdl-textfield__label" for="water_bill">Water Supply Bill (Per Month)</label>
+									</div>	 
+									<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+										<input class="mdl-textfield__input" type="number"  id="waterby_employee" />
+										<label class="mdl-textfield__label" for="waterby_employee">Employee Paid (Per Month)</label>
+									</div>	 
+									<label class="taxable-label" id="water_taxable"></label>
+									<br />
+									<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+										<input class="mdl-textfield__input" type="number"  id="servent_charge" />
+										<label class="mdl-textfield__label" for="servent_charge">Servent Charge (Per Month)</label>
+									</div>	 
+									<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+										<input class="mdl-textfield__input" type="number"  id="serventby_employee" />
+										<label class="mdl-textfield__label" for="serventby_employee">Employee Paid (Per Month)</label>
+										</div> 
+									<label class="taxable-label" id="servent_taxable"></label>
+									<br />
+									<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+										<input class="mdl-textfield__input" type="number"  id="gardener_charge" />
+										<label class="mdl-textfield__label" for="gardener_charge">Gardener Charge (Per Month)</label>
+									</div>	 
+									<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+										<input class="mdl-textfield__input" type="number"  id="gardenerby_employee" /> 
+										<label class="mdl-textfield__label" for="gardenerby_employee">Employee Paid (Per Month)</label>
+									</div>	
+									<input type="checkbox" id="employer_gardener" /><label for="employer_gardener">Appoint by Employer</label> 
+									<label class="taxable-label" id="gardener_taxable"></label>
+								</div>
+							</li>
+							<li>
+								<div class="collapsible-header"><i class="material-icons"></i>Use Of Movable Asset</div>
+								<div class="collapsible-body">
+									<div class="input-field col s12"> 
+									<select id="asset_type">
+										<option value=0>Please Select</option>
+										<option value=1>Laptop/Computer</option>
+										<option value=2>Others</option>
+									</select>
+									<label class="taxable-label">Asset Type</label>
+									</div>
+									<br />	
+									<div id="assetcostrent">
+										<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+											<input class="mdl-textfield__input" type="number"  id="costof_asset" />
+											<label class="mdl-textfield__label" for="costof_asset">Actual Cost of Asset</label>
+										</div>
+										<br />
+										<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">	
+											<input class="mdl-textfield__input" type="number"  id="asset_rent"> 
+											<label class="mdl-textfield__label" for="rent_byemployer">Asset Rent (By Employer)(Monthly)</label>
+										</div>
+										<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+											<input class="mdl-textfield__input" type="number"  id="assetrent_byemployee">
+											<label class="mdl-textfield__label" for="assetrent_byemployee">Asset Rent (By Employee)(Monthly)</label>
+										</div>
+										<br />
+										<label class="taxable-label" id="asset_taxable"></label>
+										<br />
+										<br />
+										<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" id="computeasset">Compute Taxable Asset</button>
+									</div>
+								</div>
+							</li>
+							<!--<li>
+								<div class="collapsible-header"><i class="material-icons"></i>Selling of Employer Asset</div>
+								<div class="collapsible-body">
+									Computer : 
+									Car : 
+									Other : 
+								</div>
+							</li>-->
+							<li>
+								<div class="collapsible-header"><i class="material-icons"></i>Hotel Accomodation</div>
+								<div class="collapsible-body">
+									<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+										<input class="mdl-textfield__input" type="number"  id="stayed_days" />
+										<label class="mdl-textfield__label" for="stayed_days">Stayed Days</label>
+									</div>
+									<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">	
+										<input class="mdl-textfield__input" type="number"  id="stay_charges" />
+										<label class="mdl-textfield__label" for="stay_charges">Stay Charges (Per Day)</label>
+									</div>
+									<br />	
+									<label class="taxable-label" id="hotelstay_taxable"></label>
+								</div>
+							</li>
+							<li>
+								<div class="collapsible-header"><i class="material-icons"></i>Leave Travel Consession (LTC)</div>
+								<div class="collapsible-body">
+									<div class="input-field col s12"> 
+										<select id="preceding4">
+											<option value=0>Please Select</option>
+											<option value=1>Less Than 2 Times</option>
+											<option value=2>2 Times</option>
+										</select>
+										<label class="taxable-label">LTC Taken in Preceding 4 Year of Previous 4 Year</label>
+									</div>
+									<br />	
+									<div id="gressltc">
+										<input type="checkbox" id="gress_ltc" /><label for="gress_ltc">LTC Taken in 1st Year of Previous 4 Year</label>
+									</div>
+									<br />
+									<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">	
+										<input class="mdl-textfield__input" type="number"  id="previous4" />
+										<label class="mdl-textfield__label" for="previous4">Total Traveled in Previous 4 Year </label>
+									</div>
+									<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+										<input class="mdl-textfield__input" type="number"  id="people_travel" />
+										<label class="mdl-textfield__label" for="people_travel">People Traveled</label>
+									</div>
+									<br />
+									<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">	
+										<input class="mdl-textfield__input" type="number"  id="travel_fare" />
+										<label class="mdl-textfield__label" for="travel_fare">Travel Fare For Each People</label>
+									</div>
+									<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+										<input class="mdl-textfield__input" type="number"  id="afterborn" />
+										<label class="mdl-textfield__label" for="afterborn">Travel with Children Born After</label>
+									</div>
+									<br />
+									<div id="istwin"> 
+										<input type="radio" id="is_twin" name="twin_check" /><label for="is_twin">Children Are Twins</label><br />
+										<input type="radio" id="not_twin" name="twin_check" /><label for="not_twin">Children Are Not Twins</label>
+									</div>	
+									<br />
+									<div class="input-field col s12" id="twinocation">
+										<select id="twin_ocation">
+											<option value=0>Please Select</option>
+											<option value=1>First Ocation</option>
+											<option value=2>Second Ocation</option>
+										</select>
+										<label class="taxable-label">Twins In</label>
+									</div>	
+									<label class="taxable-label" id="ltc_taxable"></label>
+									<br />
+									<br /> 
+									<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" id="computeltc">Compute Taxable LTC</button>		
+								</div>
+							</li>
+							<li>
+								<div class="collapsible-header"><i class="material-icons"></i>Medical Facilities</div>
+								<div class="collapsible-body">
+									<div class="input-field col s12">
+										<select id="treatment_in">
+											<option value=0>Please Select</option>
+											<option value=1>Govt. Hospital</option>
+											<option value=2>Employer Hospital</option>
+											<option value=3>Medical Insurance Premium</option>
+											<option value=4>Reimbursed by Employer</option>
+										</select>
+										<label class="taxable-label">Treatment In India in</label>
+									</div>	
+									<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="medicalreimbursed">										 
+										<input class="mdl-textfield__input" type="number"  id="medical_reimbursed">
+										<label class="mdl-textfield__label" for="medical_reimbursed">Reimbursed Amount</label>
+									</div>	 
+									<label class="taxable-label" id="mr_taxable"></label>
+								</div>
+							</li>
+							<!--<li>
+								<div class="collapsible-header"><i class="material-icons"></i>Education Facilities</div>
+								<div class="collapsible-body">
+									In Employer School :
+									In Other School : 
+								</div>
+							</li>
+							<li>
+								<div class="collapsible-header"><i class="material-icons"></i>Car & Driver Facilities</div>
+								<div class="collapsible-body">
+									<div class="input-field col s12">
+										<select>
+											<option value=0>Please Select</option>
+											<option value=1>Employer</option>
+											<option value=2>Employee</option>
+										</select> 
+										<label class="taxable-label">car Owned By</label>
+									</div>
+									<div class="input-field col s12">	 
+										<select>
+										  	<option value=0>Please Select</option>
+											<option value=1>Employer</option>
+											<option value=2>Employee</option>
+										</select> 
+										<label class="taxable-label">Car Mainten By</label>
+									</div>
+									<div class="input-field col s12">	
+										<select>
+										  	<option value=0>Please Select</option>
+											<option value=1>Office</option>
+											<option value=2>Personal</option>
+										</select>
+										<label class="taxable-label">Use for</label>
+									</div>
+									<div class="input-field col s12">	 
+										<select>
+										  	<option value=0>Please Select</option>
+											<option value=1>Uptp 1.6 Ltrs</option>
+											<option value=2>More Than 1.6 Ltrs</option>
+										</select>
+										<label class="taxable-label">Car Type</label>
+									</div>
+									<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+										<input class="mdl-textfield__input" type="number"  id="driver_charges" />
+										<label class="mdl-textfield__label" for="driver_charges">Driver Charges</label>
+									</div>
+									<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"> 
+										<input class="mdl-textfield__input" type="number"  id="driverby_employee" />
+										<label class="mdl-textfield__label" for="driverby_employee">Employee Paid</label>
+									</div>
+									<br /> 
+									<label class="taxable-label" id="driver_taxable"></label>
+									<br />
+									<label class="taxable-label" id="cardriver_taxable"></label>
+									<br /><br />
+									<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" id="cardrivertaxable">Compute Taxable Car & Driver</button>
+								</div>
+							</li>-->
+							<li>
+								<div class="collapsible-header"><i class="material-icons"></i>Gift</div>
+								<div class="collapsible-body">
+									<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+										<input class="mdl-textfield__input" type="number"  id="kind_gift" /> 
+										<label class="mdl-textfield__label" for="kind_gift">Gift in Kind (value)</label>
+									</div>	
+								<label class="taxable-label" id="kindgift_taxable"></label>
+								<br />
+								<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+									<input class="mdl-textfield__input" type="number"  id="cash_gift" />
+									<label class="mdl-textfield__label" for="cash_gift">Cash Gift</label>
+								</div>
+								<br />	 
+								<label class="taxable-label" id="gift_taxable"></label>
+								<br />
+								<br />
+								<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" id="gifttaxable">Compute Taxable Gift</button>
+							</div>
+							</li>
+							<li>
+								<div class="collapsible-header"><i class="material-icons"></i>Credid Card</div>
+								<div class="collapsible-body">
+									<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+										<input class="mdl-textfield__input" type="number"  id="creditcard_bill" />
+										<label class="mdl-textfield__label" for="creditcard_bill">Crdit Card Bill</label>
+									</div>	
+									<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"> 
+										<input class="mdl-textfield__input" type="number"  id="creditcard_officeuse" />
+										<label class="mdl-textfield__label" for="creditcard_officeuse">For Office Use</label>
+									</div>
+									<br />	
+									<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"> 
+										<input class="mdl-textfield__input" type="number"  id="creditcard_billbyemployee">
+										<label class="mdl-textfield__label" for="creditcard_billbyemployee">Bill Paid (By Employee)</label>
+									</div>	 
+									<label class="taxable-label" id="creditcard_taxable"></label>
+									<br />
+									<br /> 
+									<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" id="computecreditcard">Compute CC Taxable</button>
+								</div>	
+							</li>
+							<li>
+								<div class="collapsible-header"><i class="material-icons"></i>Club MemberShip</div>
+								<div class="collapsible-body">
+									<div class="input-field col s12">	 
+										<select id="club_type">
+											<option value=0>Please Select</option>
+											<option value=1>Health Club</option>
+											<option value=2>Sports Club</option>
+											<option value=3>Others</option>
+										</select>
+										<label class="taxable-label">Club Type</label>
+									</div>	
+									<div id="membership_type">
+										<input type="radio" id="personal_membership" name="membership_type" /><label for="personal_membership">Personal Membership</label><br /> 
+										<input type="radio" id="corporate_membership" name="membership_type" /><label for="corporate_membership">Corporate Membership</label>
+									</div>
+									<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="personal_fee">
+										<input class="mdl-textfield__input" type="number"  id="clubjoin_fee">
+										<label class="mdl-textfield__label" for="clubjoin_fee">Registration Fee</label>
+									</div>	
+									<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="corporate_fee">
+										<input class="mdl-textfield__input" type="number"  id="clubmembership_fee" />
+										<label class="mdl-textfield__label" for="clubmembership_fee">Membership Fee (Per Anum)</label>
+									</div>
+									<br />
+									<label class="taxable-label" id="clubmembership_taxable"></label>
+								</div>
+							</li>
+							<li>
+								<div class="collapsible-header"><i class="material-icons"></i>Super Amination Fund</div>
+								<div class="collapsible-body">
+									<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+										<input class="mdl-textfield__input" type="number"  id="sa_fund" />
+										<label class="mdl-textfield__label" for="sa_fund">Employer Contribution</label>
+									</div>
+									<br />	 
+									<label class="taxable-label" id="safund_taxable"></label>
+								</div>
+							</li>
+							<li>
+								<div class="collapsible-header"><i class="material-icons"></i>Interest Free Loan</div>
+								<div class="collapsible-body">
+									<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+										<input class="mdl-textfield__input" type="number"  id="loan_amount" />
+										<label class="mdl-textfield__label" for="loan_amount">Loan Amount</label>
+									</div>
+									<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"> 
+										<input class="mdl-textfield__input" type="number"  id="loan_interest" />
+										<label class="mdl-textfield__label" for="loan_interest">Interest</label>
+									</div>
+									<br />
+									<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+										<input class="mdl-textfield__input" type="number"  id="sbiloan_interest" />
+										<label class="mdl-textfield__label" for="sbiloan_interest">Loan Interest of SBI</label>
+									</div> 
+									<label class="taxable-label" id="loan_taxable"></label>
+									<br />
+									<br />
+									<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" id="computeloan">Compute Tax</button>
+								</div>
+							</li>
+							<li>
+								<div class="collapsible-header"><i class="material-icons"></i>ESOP</div>
+								<div class="collapsible-body">
+									<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+										<input class="mdl-textfield__input" type="number"  id="offershare_price">
+										<label class="mdl-textfield__label" for="offershare_price">Share Price (Offer By Employer)</label>
+									</div>	 
+									<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+										<input class="mdl-textfield__input" type="number"  id="actualshare_price">
+										<label class="mdl-textfield__label" for="actualshare_price">Share Price (On Application Day)</label>
+									</div>
+									<br />	
+									<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+										<input class="mdl-textfield__input" type="number"  id="share_quantity" />
+										<label class="mdl-textfield__label" for="share_quantity">Quantity Of Share</label>
+									</div>	 
+									<label class="taxable-label" id="esop_taxable"></label>
+									<br />
+									<br /> 
+									<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" id="computeesop">Compute ESOP</button>
+								</div>
+							</li>
+							<li>
+								<div class="collapsible-header"><i class="material-icons"></i>Employees Provident Fund</div>
+								<div class="collapsible-body">
+									<div class="input-field col s12">
+										<select id="pf_type">
+											<option value="0">Please Select</option>
+											<option value="1">Recognised PF</option>
+											<option value="2">Unrecognised PF</option>
+											<option value="3">Statutory PF</option>
+										</select>
+										<label class="taxable-label">Type Of PF</label>
+									</div>	
+									<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="contripf"> 
+										<input class="mdl-textfield__input" type="number"  id="contri_pf" />
+										<label class="mdl-textfield__label" for="contri_pf">Employer Contribution To PF (Monthly)</label>
+									</div>
+									<!--<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="interestpf"> 
+										<input class="mdl-textfield__input" type="number"  id="interest_pf" />
+										<label class="mdl-textfield__label" for="interest_pf">Interest Credited To PF</label>
+									</div>-->
+									<br />
+									<label class="taxable-label" id="pf_taxable"></label>
+									<br />
+									<br />
+									<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" id="computepf">Compute Taxable PF</button>
+								</div>
+							</li>
+							</ul>
+							<label class="taxable-label" id="totaltaxable_perquisite"></label>
+							<br />
+							<br /> 
+							<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" id="gettotalperquisite">Get Total</button>
+							<hr/>
+						</div>
+						<div id="tabs-4" class="col s12">
+							<ul class="collapsible popout" data-collapsible="accordion">
+								<li>
+			      					<div class="collapsible-header"><i class="material-icons"></i>Total Taxable Income</div>
+			      					<div class="collapsible-body">
+										<label class="taxable-label" id="basic_commission"></label>
+										<br />
+										<label class="taxable-label" id="taxable_allowances"></label>
+										<br />
+										<label class="taxable-label" id="taxable_perquisite"></label>
+										<br />
+										<label class="taxable-label" id="taxable_income"></label>
+										<br />
+										<br />
+										<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" id="gettotaltaxable">Compute Taxable Income</button>
+									</div>
+								</li>
+								<li>
+			      					<div class="collapsible-header"><i class="material-icons"></i>Payable Tax</div>
+			      					<div class="collapsible-body">
+			      						<br />
+										Age : <input type="number" min="1" max="12" id="age_limit" />
+										<br />
+										<br />
+										<label class="taxable-label" id="payable_tax"></label>
+										<br />
+										<br />
+										<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" id="getpayabletax">Compute Payable Tax</button>
+			      					</div>
+			      				</li>
+			      			</ul>			
+						</div>
+					</div>
+				</div>
+			</main>
+		  	<div id="calcul" class="modal">
+			    <div class="modal-content">
+			      	<h4>Calculator</h4>
+				    <div class="container">
+				        <section class="contant">
+							<div class="calc">
+								<div class="calc-in">
+									<form id="calcform">
+										<input id="display" type="text" value="0" disabled="1">
+										<div class="num-wrap">
+											<button id="n1" value="1">1</button>
+											<button id="n2" value="2">2</button>
+											<button id="n3" value="3">3</button>
+											<button id="n4" value="4">4</button>
+											<button id="n5" value="5">5</button>
+											<button id="n6" value="6">6</button>
+											<button id="n7" value="7">7</button>
+											<button id="n8" value="8">8</button>
+											<button id="n9" value="9">9</button>
+											<button id="n0" value="0">0</button>
+											<button id="nP" value=".">.</button>
+											<button id="nadd" value="+">+</button>
+											<button id="nsub" value="-">-</button>
+											<button id="nmul" value="*">*</button>
+											<button id="ndiv" value="/">/</button>
+											<button id="nmod" value="%">%</button>
+											<button id="neq" value="=">=</button>
+											<button id="nC" value="c">C</button>	
+										</div>
+									</form>
+								</div>
+							</div>
+				        </section>
+				    </div>
+			    </div>
+			    <div class="modal-footer">
+			    	<a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+			    </div>
+		  	</div>
+		  	<div id="hrasolve" class="modal">
+									    <div class="modal-content">
+									      	<h4>Taxable HRA Calculation</h4>
+										    <label class="taxable-label">Rule : </label>
+										    <br />
+										    <label class="taxable-label" id="percentageof_da"></label>
+										    <br />
+										    <label class="taxable-label" id="salary_forhra"></label>
+										    <br />
+										    <label class="taxable-label">Less Exemption - being Least of The Following</label>
+										    <br />
+										    <label class="taxable-label" id="actual_rent"></label>
+										    <br />
+										    <label class="taxable-label" id="percentageof_sal"></label><label class="taxable-label" id="amountof_sal"></label>
+										    <br />
+										    <label class="taxable-label" id="rent_sal"></label>
+										    <br />
+										    <label>-------------------------------------</label>
+										    <br />
+										    <label class="taxable-label" id="exempt_hra"></label>
+										    <br />
+										    <label class="taxable-label" id="tax_hra"></label>
+									    </div>
+									    <div class="modal-footer">
+									    	<a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+									    </div>
+								  	</div>
+			<footer class="mdl-mini-footer">
+  				<div class="mdl-mini-footer__left-section">
+    				<div class="mdl-logo"></div>
+    				<ul class="mdl-mini-footer__link-list">
+      					<li><a href="#"></a></li>
+    				</ul>
+    				<a class="waves-effect waves-light btn modal-trigger" href="#calcul" id="calc">Calculator</a>
+  				</div>
+			</footer>
+		</div>
+	</body>
+</html>

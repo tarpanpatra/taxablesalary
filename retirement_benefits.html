@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	    <meta name="google-site-verification" content="dcbdcdXEgtX2LzLMYBbszJFGSmlPDEmRpzx3jvavvp0" />
+		<title>Simple Tax Calculator</title>
+		<link rel="stylesheet" href="css/materialize.min.css">
+		<link rel="stylesheet" href="css/material.min.css">
+		<link rel="stylesheet" href="css/cssone.min.css">
+		<link rel="stylesheet" href="css/offline.min.css">
+		<script src="js/jquery.min.js"></script>
+	    <script src="js/materialize.min.js"></script>
+		<script src="js/material.min.js"></script>
+		<script src="js/offline.min.js"></script>
+		<script src="js/jsthree.min.js"></script>
+		<script type="text/javascript">
+			$(function(){
+				var Calc={
+						display:function(v){
+							$("#display").val(v);
+						},
+						clear:function(){
+							$("#display").val(" ");
+						},
+						doCal:function(val){
+							var result="";
+							var dtemp=$("#display").val();
+							if(dtemp=="0"){
+								this.clear();
+								result=val; 
+							}else if(val=="c"){
+								this.clear();
+							}else if(val=="="){
+								result=eval(dtemp);
+							}else{
+								result=dtemp+val;
+							}
+								this.display(result);
+						}
+					}
+					$("body").keypress(function(e){
+						Calc.doCal(String.fromCharCode(e.which));
+					});
+					$('.calc button').click(function(e){
+						e.preventDefault();
+						Calc.doCal(this.value);
+					});
+			});
+		</script>
+	</head>
+	<body>
+		<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+			<header class="mdl-layout__header">
+			    	<div class="mdl-layout__header-row">
+			      		<span class="mdl-layout-title">Simple Tax Calculator</span>
+			      		<div class="mdl-layout-spacer"></div>
+			      		<button id="demo-menu-lower-right" class="mdl-button mdl-js-button mdl-button--icon"><i class="material-icons">more_vert</i></button>
+						<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="demo-menu-lower-right">
+						  <li class="mdl-menu__item">Help</li>
+						  <li class="mdl-menu__item">News</li>
+						</ul>
+			    	</div>
+				<!--  
+			    	<div class="mdl-layout__header-row">
+			      		<div class="mdl-layout-spacer"></div>
+			    	</div>
+			    	-->
+			</header>
+			<div class="mdl-layout__drawer">
+	    		<span class="mdl-layout-title">Calculate Tax</span>
+	    		<nav class="mdl-navigation">
+		     		<a class="mdl-navigation__link" href="index.html">DashBoard</a>
+		      		<a class="mdl-navigation__link" href="taxable_salary.html">Taxable Salary</a>
+		      		<a class="mdl-navigation__link" href="retirement_benefits.html">Retirement Benefits</a>
+	    		</nav>
+  			</div>
+  			<main class="mdl-layout__content">
+			    <div class="page-content">
+					<div class="row">
+					  	<div class="col s12">
+						    <ul class="tabs">
+							    <li class="tab col s3"><a class="active" href="#tabs-1">Gratuity</a></li>
+							    <li class="tab col s3"><a href="#tabs-2">Pension</a></li>
+							    <li class="tab col s3"><a href="#tabs-3">VRS</a></li>
+						    </ul>
+					    </div>
+						<div id="tabs-1" class="col s12">
+							<br />
+							<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+								<input class="mdl-textfield__input" type="number" id="gratuity">
+								<label class="mdl-textfield__label" for="gratuity">Gratuity Received</label>
+							</div>
+							<br />
+			      			<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+								<input class="mdl-textfield__input" type="number" id="last_basic">
+								<label class="mdl-textfield__label" for="last_basic">Last basic Drawon(Monthly)</label>
+							</div>
+							<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+								<input class="mdl-textfield__input" type="number" id="last_da">
+								<label class="mdl-textfield__label" for="last_da">Last DA Drawon(Monthly)</label>
+							</div>
+							<br />
+							Service Duration : 
+							<br />
+							<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+								<input class="mdl-textfield__input" type="number" id="service_year">
+								<label class="mdl-textfield__label" for="service_year">Year</label>
+							</div>
+							<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+								<input class="mdl-textfield__input" type="number" id="service_month">
+								<label class="mdl-textfield__label" for="service_month">Month</label>
+							</div> 
+							<br />
+							<input type="radio" name="gratuity_act" id="gartuityact_Covered" /><label for="gartuityact_Covered">Gratuity Act 1972 Covered</label><br />
+							<input type="radio" name="gratuity_act" id="gartuityact_notcovered" /><label for="gartuityact_notcovered">Gratuity Act 1972 Not Covered</label><br />
+							<br />
+							<div id="act_notcovered">
+								<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+									<input class="mdl-textfield__input" type="number" id="da_p">
+									<label class="mdl-textfield__label" for="da_p">(%) of DA Retirement benefit</label>
+								</div>
+								<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+									<input class="mdl-textfield__input" type="number" id="commission">
+									<label class="mdl-textfield__label" for="commission">Commission Received</label>
+								</div>
+								<br />
+								<input type="checkbox" id="increment_ed" /><label for="increment_ed">Salary Increment Within Previous 10 Month From Retairement</label>
+							</div>
+							<br />
+							<div id="incremented">
+								<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+									<input class="mdl-textfield__input" type="number" id="month" />
+									<label class="mdl-textfield__label" for="month">Received Incremented Salary for Months</label>
+								</div>
+								<br />
+								<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+									<input class="mdl-textfield__input" type="number" id="basic_b4" />
+									<label class="mdl-textfield__label" for="basic_b4">Basic before Increment(Monthly)</label>
+								</div>
+								<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+									<input class="mdl-textfield__input" type="number" id="da_b4">
+									<label class="mdl-textfield__label" for="da_b4">DA before Increment(Monthly)</label>
+								</div>
+			      			</div>
+			      			<label class="taxable-label" id="gratuity_taxable"></label>
+			      			<br /><br />
+			      			<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" id="computegratuity">Compute Taxable Gratuity</button>
+			      		</div>
+						<div id="tabs-2" class="col s12">
+							<div class="input-field col s12"> 
+								<select id="emp_type">
+									<option value=0>Please Select</option>
+									<option value=1>Govt Employee</option>
+									<option value=2>Non Govt Employee</option>
+								</select>
+								<label class="taxable-label">Employee Type</label>
+							</div>
+							<div id="govt">
+			      				<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+									<input class="mdl-textfield__input" type="number" id="commu_amt">
+									<label class="mdl-textfield__label" for="commu_amt">Commutation Amount (Lump Sum)</label>
+								</div>
+								Percentage(%) of Commutation : <input type="number" min="1" max="100" id="commu_percent" />
+								<br />
+								<input type="radio" name="gratuity" id="gartuity_receive" /><label for="gartuity_receive">Gratuity Received</label><br />
+								<input type="radio" name="gratuity" id="gartuity_notreceive" /><label for="gartuity_notreceive">Gratuity Not Received</label><br />
+								<br />
+							</div>
+							<label class="taxable-label" id="pension_taxable"></label>
+							<br /><br />
+			      			<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" id="computepension">Compute Taxable Pension</button>	
+						</div>
+						<div id="tabs-3" class="col s12">
+							<br />
+							<div class="input-field col s12"> 
+								<select id="exempt_taken">
+									<option value=0>Please Select</option>
+									<option value=1>One Exemption Taken</option>
+									<option value=2>No Exemption Taken</option>
+								</select>
+								<label class="taxable-label">VRS Exemption</label>
+							</div>
+							<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="vrs_amt">
+								<input class="mdl-textfield__input" type="number" id="vrs_amount">
+								<label class="mdl-textfield__label" for="vrs_amount">VRS Amount</label>
+							</div>
+							<div id="chk_vrs">
+								Age : <input type="number" min="1" max="100" id="age">
+								<br /><br />
+								Completed Year of Service : <input type="number" min="1" max="100" id="comp_year"> Service Left in Month : <input type="number" min="1" max="100" id="left_month">
+								<br />
+								<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+									<input class="mdl-textfield__input" type="number" id="vrs_basic">
+									<label class="mdl-textfield__label" for="vrs_basic">Last basic Drawon(Monthly)</label>
+								</div>
+								<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+									<input class="mdl-textfield__input" type="number" id="vrs_da">
+									<label class="mdl-textfield__label" for="vrs_da">Last DA Drawon(Monthly)</label>
+								</div>
+							</div>
+							<br />
+							<label class="taxable-label" id="vrs_taxable"></label>
+							<br /><br />
+							<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" id="computevrs">Compute Taxable VRS</button>	
+						</div>
+					</div>	
+				</div>
+			</main>		
+  			<div id="modal1" class="modal">
+			    <div class="modal-content">
+			      	<h4>Calculator</h4>
+				    <div class="container">
+				        <section class="contant">
+							<div class="calc">
+								<div class="calc-in">
+									<form id="calcform">
+										<input id="display" type="text" value="0" disabled="1">
+										<div class="num-wrap">
+											<button id="n1" value="1">1</button>
+											<button id="n2" value="2">2</button>
+											<button id="n3" value="3">3</button>
+											<button id="n4" value="4">4</button>
+											<button id="n5" value="5">5</button>
+											<button id="n6" value="6">6</button>
+											<button id="n7" value="7">7</button>
+											<button id="n8" value="8">8</button>
+											<button id="n9" value="9">9</button>
+											<button id="n0" value="0">0</button>
+											<button id="nP" value=".">.</button>
+											<button id="nadd" value="+">+</button>
+											<button id="nsub" value="-">-</button>
+											<button id="nmul" value="*">*</button>
+											<button id="ndiv" value="/">/</button>
+											<button id="nmod" value="%">%</button>
+											<button id="neq" value="=">=</button>
+											<button id="nC" value="c">C</button>	
+										</div>
+									</form>
+								</div>
+							</div>
+				        </section>
+				    </div>
+			    </div>
+			    <div class="modal-footer">
+			    	<a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+			    </div>
+		  	</div>
+			<footer class="mdl-mini-footer">
+  				<div class="mdl-mini-footer__left-section">
+    				<div class="mdl-logo"></div>
+    				<ul class="mdl-mini-footer__link-list">
+      					<li><a href="#"></a></li>
+    				</ul>
+    				<a class="waves-effect waves-light btn modal-trigger" href="#modal1" id="calc">Calculator</a>
+  				</div>
+			</footer>
+		</div>
+	</body>
+</html>	
